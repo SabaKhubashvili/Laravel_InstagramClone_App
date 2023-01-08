@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -29,14 +30,10 @@ class HomeController extends Controller
     public function index(){
         $posts = Post::orderBy('id','desc')->get();
         $profile = Auth::user();
+       
+        $users = User::where('id', '!=', \Auth::user()->id)->get();
 
-        return view('index',compact(['posts','profile']));
+        return view('index',compact(['posts','profile','users']));
      }
 
-
-    // public function heart(Post $post){
-    //     $like = Like::where('post_id',$post->id);
-    //     return $like;
-    //     $like->save();
-    // }
 }

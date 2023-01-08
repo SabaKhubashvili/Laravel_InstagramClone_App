@@ -259,16 +259,18 @@
               <button>See All</button>
             </div>
             <div class="side-menu__suggestions-content">
-              <div class="side-menu__suggestion">
-                <a href="#" class="side-menu__suggestion-avatar">
-                  <img src="{{asset('images/user/default-user.png')}}" alt="User Picture" />
-                </a>
-                <div class="side-menu__suggestion-info">
-                  <a href="#">usernick16</a>
-                  <span>Followed by user1, user2 and 9 others</span>
+              @foreach($users as $user)
+                <div class="side-menu__suggestion">
+                  <a href="#" class="side-menu__suggestion-avatar">
+                    <img src="{{asset($user->profile_image)}}" alt="User Picture" />
+                  </a>
+                  <div class="side-menu__suggestion-info">
+                    <a href="#">{{$user->name}}</a>
+                    <span>Followed by user1, user2 and 9 others</span>
+                  </div>
+                  <button class="side-menu__suggestion-button">Follow</button>
                 </div>
-                <button class="side-menu__suggestion-button">Follow</button>
-              </div>
+              @endforeach
               </div>
             </div>
           </div>
