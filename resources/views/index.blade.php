@@ -119,30 +119,51 @@
                 </div>
               </div>
 
-              <div class="post__footer">
-                {{-- <div class="post__buttons">
-                  {!! Form::model($post,['method'=>'POST','route'=>['heart',$post->id]]) !!}
+              <div class="post__footer">       
+                <div class="post__buttons">
+
+                  @if(isHearted($post->id) == 'hearted')
+                  {!! Form::model($post->user,['method'=>'POST','route'=>'unheart','id'=>'unHeartForm']) !!}
+                    <button class="post__button"  name="unheart" value="{{$post->id}}" type="submit">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"                   
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M11.4995 21.2609C11.1062 21.2609 10.7307 21.1362 10.4133 20.9001C8.2588 19.3012 3.10938 15.3239 1.81755 12.9143C0.127895 9.76543 1.14258 5.72131 4.07489 3.89968C5.02253 3.31177 6.09533 3 7.18601 3C8.81755 3 10.3508 3.66808 11.4995 4.85726C12.6483 3.66808 14.1815 3 15.8131 3C16.9038 3 17.9766 3.31177 18.9242 3.89968C21.8565 5.72131 22.8712 9.76543 21.186 12.9143C19.8942 15.3239 14.7448 19.3012 12.5902 20.9001C12.2684 21.1362 11.8929 21.2609 11.4995 21.2609ZM7.18601 4.33616C6.34565 4.33616 5.5187 4.57667 4.78562 5.03096C2.43888 6.49183 1.63428 9.74316 2.99763 12.2819C4.19558 14.5177 9.58639 18.6242 11.209 19.8267C11.3789 19.9514 11.6158 19.9514 11.7856 19.8267C13.4082 18.6197 18.799 14.5133 19.997 12.2819C21.3603 9.74316 20.5557 6.48738 18.209 5.03096C17.4804 4.57667 16.6534 4.33616 15.8131 4.33616C14.3425 4.33616 12.9657 5.04878 12.0359 6.28696L11.4995 7.00848L10.9631 6.28696C10.0334 5.04878 8.6611 4.33616 7.18601 4.33616Z"
+                          fill = "red"
+                          stroke="red"
+                          stroke-width="0.6"
+                        />
+                      </svg>
+                    </button>
+                    {!! Form::close() !!}
+                  @else
+
+                  {!! Form::model($post->user,['method'=>'POST','route'=>'heart','id'=>'heartForm']) !!}
+                  <input type="hidden" id="token" value="{{ @csrf_token() }}">
+                    <button class="post__button" id="heart" name="heart" value="{{$post->id}}" type="submit">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M11.4995 21.2609C11.1062 21.2609 10.7307 21.1362 10.4133 20.9001C8.2588 19.3012 3.10938 15.3239 1.81755 12.9143C0.127895 9.76543 1.14258 5.72131 4.07489 3.89968C5.02253 3.31177 6.09533 3 7.18601 3C8.81755 3 10.3508 3.66808 11.4995 4.85726C12.6483 3.66808 14.1815 3 15.8131 3C16.9038 3 17.9766 3.31177 18.9242 3.89968C21.8565 5.72131 22.8712 9.76543 21.186 12.9143C19.8942 15.3239 14.7448 19.3012 12.5902 20.9001C12.2684 21.1362 11.8929 21.2609 11.4995 21.2609ZM7.18601 4.33616C6.34565 4.33616 5.5187 4.57667 4.78562 5.03096C2.43888 6.49183 1.63428 9.74316 2.99763 12.2819C4.19558 14.5177 9.58639 18.6242 11.209 19.8267C11.3789 19.9514 11.6158 19.9514 11.7856 19.8267C13.4082 18.6197 18.799 14.5133 19.997 12.2819C21.3603 9.74316 20.5557 6.48738 18.209 5.03096C17.4804 4.57667 16.6534 4.33616 15.8131 4.33616C14.3425 4.33616 12.9657 5.04878 12.0359 6.28696L11.4995 7.00848L10.9631 6.28696C10.0334 5.04878 8.6611 4.33616 7.18601 4.33616Z"
+                          fill="var(--text-dark)"
+                          stroke="var(--text-dark)"
+                          stroke-width="0.6"
+                        />
+                      </svg>
+                    </button>
+                  {!! Form::close() !!}
+                  @endif
 
                  
-
-                  <button class="post__button" name="like" value="1" type="submit">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11.4995 21.2609C11.1062 21.2609 10.7307 21.1362 10.4133 20.9001C8.2588 19.3012 3.10938 15.3239 1.81755 12.9143C0.127895 9.76543 1.14258 5.72131 4.07489 3.89968C5.02253 3.31177 6.09533 3 7.18601 3C8.81755 3 10.3508 3.66808 11.4995 4.85726C12.6483 3.66808 14.1815 3 15.8131 3C16.9038 3 17.9766 3.31177 18.9242 3.89968C21.8565 5.72131 22.8712 9.76543 21.186 12.9143C19.8942 15.3239 14.7448 19.3012 12.5902 20.9001C12.2684 21.1362 11.8929 21.2609 11.4995 21.2609ZM7.18601 4.33616C6.34565 4.33616 5.5187 4.57667 4.78562 5.03096C2.43888 6.49183 1.63428 9.74316 2.99763 12.2819C4.19558 14.5177 9.58639 18.6242 11.209 19.8267C11.3789 19.9514 11.6158 19.9514 11.7856 19.8267C13.4082 18.6197 18.799 14.5133 19.997 12.2819C21.3603 9.74316 20.5557 6.48738 18.209 5.03096C17.4804 4.57667 16.6534 4.33616 15.8131 4.33616C14.3425 4.33616 12.9657 5.04878 12.0359 6.28696L11.4995 7.00848L10.9631 6.28696C10.0334 5.04878 8.6611 4.33616 7.18601 4.33616Z"
-                        fill="var(--text-dark)"
-                        stroke="var(--text-dark)"
-                        stroke-width="0.6"
-                      />
-                    </svg>
-                  </button>
-
-                  {!! Form::close() !!}
                   <button class="post__button">
                     <svg
                       width="24"
@@ -198,22 +219,26 @@
                       />
                     </svg>
                   </button>
-                </div> --}}
+                </div>
 
                 <div class="post__infos">
-                  {{-- <div class="post__likes">
+                  <div class="post__likes">
                     <a href="#" class="post__likes-avatar">
                       <img src="{{asset('images/user/default-user.png')}}" alt="User Picture" />
                     </a>
 
                     <span
                       >Liked by
-                      <a class="post__name--underline" href="#">user123</a> and
-                      <a href="#">50 others</a></span
+                      @if(count($post->hearts) < 3)
+                      <a class="post__name--underline" href="#">@foreach($post->hearts as $heart) {{$heart->name}}  @endforeach</a>
+                      @else
+                      <a class="post__name--underline" href="#">@foreach($post->hearts->take(3) as $heart) {{$heart->name}}  @endforeach</a> and
+                      <a href="#">{{count($post->hearts)}} others</a></span
                     >
-                  </div> --}}
+                    @endif
+                  </div>
 
-                  <div class="post__description mt-5">
+                  <div class="post__description mt-2">
                     <span>
                       <a
                         class="post__name--underline"
@@ -221,7 +246,14 @@
                         style="font-weight: 700;"
                         target="_blank"
                         >{{$post->user->name}}</a>
-                        {{ strlen($post->content) > 100 ? substr($post->content,0,100).'......' : $post->content }}
+                        
+                        @if(strlen($post->content) > 100)
+                            {{substr($post->content, 0, strrpos(substr($post->content, 0, 100), ' ')) . '...';}}
+                        @else
+                            {{$post->content}}
+                        @endif
+
+                       
                     </span>
                   </div>
 
@@ -261,14 +293,24 @@
             <div class="side-menu__suggestions-content">
               @foreach($users as $user)
                 <div class="side-menu__suggestion">
-                  <a href="#" class="side-menu__suggestion-avatar">
+                  <a href="{{route('profile.show',$user->id)}}" class="side-menu__suggestion-avatar">
                     <img src="{{asset($user->profile_image)}}" alt="User Picture" />
                   </a>
                   <div class="side-menu__suggestion-info">
-                    <a href="#">{{$user->name}}</a>
-                    <span>Followed by user1, user2 and 9 others</span>
+                    <a href="{{route('profile.show',$user->id)}}">{{$user->name}}</a>
+                    <span>  @if(count($user->followers->where('id', '!=', $profile->id)) > 0) @foreach($user->followers as $follower) Followed By {{$follower->name}}@endforeach @else Suggested For You @endif  </span>
                   </div>
-                  <button class="side-menu__suggestion-button">Follow</button>
+                  
+                  @if(isFollowing($user->id) == 'following')
+                  {!! Form::model($user,['method'=>'POST','route'=>'unfollow']) !!}
+                    <button class="side-menu__suggestion-button" name="unfollow" value="{{$user->id}}">Unfollow</button>
+                  {!! Form::close() !!}
+                  @else
+                  {!! Form::open(['method'=>'POST','route'=>'follow']) !!}
+                     <button class="side-menu__suggestion-button" name="follow" value="{{$user->id}}">Follow</button>
+                  {!! Form::close() !!}
+                    @endif
+                  
                 </div>
               @endforeach
               </div>
@@ -326,6 +368,5 @@
     
 
   @section('footer')
-      
   @endsection
       

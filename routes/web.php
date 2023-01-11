@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HeartController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\profileController;
 
 /*
@@ -26,3 +28,13 @@ Route::resource('/profile', profileController::class)->name('index','profile');
 
 Route::resource('/post','App\Http\Controllers\PostsController');
 
+Route::group(['middleware' => 'auth'], function () {
+    /* Follow */
+    Route::post('/follow',[FollowController::class, 'follow'])->name('follow');
+    Route::post('/unfollow',[FollowController::class,'unfollow'])->name('unfollow');
+
+    /*Heart */
+
+    Route::post('/heart',[HeartController::class,'heart'])->name('heart');
+    Route::post('/unheart',[HeartController::class,'unheart'])->name('unheart');
+});

@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Post;
+use App\Models\Heart;
+use App\Models\Follow;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,5 +50,15 @@ class User extends Authenticatable
     }
     public function posts(){
         return $this->hasMany(Post::class,'user_id');
+    }
+    public function following() {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'user_id');
+    }
+    
+    public function followers() {
+        return $this->belongsToMany(User::class, 'follows','user_id', 'follower_id');
+    }
+    public function hearts(){
+        return $this->hasMany(Heart::class,'user_id');
     }
 }

@@ -23,13 +23,24 @@
 
 			<div class="profile-user-settings">
 
+			<div class="d-flex" style="align-items: center">
 				<h1 class="profile-user-name">{{$profile->name }}</h1>
 
 				@if(Auth::user()->id == $profile->id)
 				<a href="{{route('profile.edit',$profile->id)}}" class="btn profile-edit-btn">Edit Profile</a>
 
 				<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
-				@endif
+				@elseif(isFollowing($profile->id) == 'following')
+						{!! Form::model($profile,['method'=>'POST','route'=>'unfollow']) !!}
+						 <button class="side-menu__suggestion-button mx-4" name="unfollow" value="{{$profile->id}}">Unfollow</button>
+					{!! Form::close() !!}
+				@else
+						{!! Form::open(['method'=>'POST','route'=>'follow']) !!}
+						  <button class="side-menu__suggestion-button mx-4" name="follow" value="{{$profile->id}}">Follow</button>
+					{!! Form::close() !!}
+				 @endif
+				</div>
+				
 				<br>
 				<h6>@ {{$profile->username}}</h6>
 			</div>
@@ -38,8 +49,8 @@
 
 				<ul>
 					<li><span class="profile-stat-count">{{count($profile->posts)}}</span> posts</li>
-					<li><span class="profile-stat-count">188</span> followers</li>
-					<li><span class="profile-stat-count">206</span> following</li>
+					<li> <a data-bs-toggle="modal" href="#FollowersModal"><span class="profile-stat-count">{{count($profile->followers)}}</span> followers</a></li>
+					<li> <a data-bs-toggle="modal" href="#FollowingModal"><span class="profile-stat-count">{{count($profile->following)}}</span> following </a></li>
 				</ul>
 
 			</div>
@@ -129,6 +140,100 @@
 
 	</div>
 
+		<div class="Followers-modal modal fade" id="FollowersModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="container">
+
+								<div class="modal-body">
+									<!-- Project details-->
+									<div class="head">
+									<h2 class="text-uppercase">Followers</h2>
+									<div class="button-wrap-close">
+										<div class="close-modal" data-bs-dismiss="modal"><i class="fa-solid fa-x"></i></div>
+									</div>
+									</div>
+
+									<div class="followers" style="overflow-y: auto">
+										@foreach($followers as $follower)
+										<div class="button-wrap"> 
+											<div class="profile_image">
+												<img src="{{asset($follower->profile_image)}}" alt="" srcset="">
+											</div>
+											<div class="info">
+												
+												<div class="username">{{$follower->username}} &#x2022
+													@if(isFollowing($follower->id) == 'following')
+													{!! Form::model($follower,['method'=>'POST','route'=>'unfollow']) !!}
+													  <button class="side-menu__suggestion-button" name="unfollow" value="{{$follower->id}}">Unfollow</button>
+													{!! Form::close() !!}
+													@else
+													{!! Form::open(['method'=>'POST','route'=>'follow']) !!}
+													   <button class="side-menu__suggestion-button" name="follow" value="{{$follower->id}}">Follow</button>
+													{!! Form::close() !!}
+													  @endif
+													
+													
+													</div>
+												<div class="name">{{$follower->name}}</div>
+											</div>
+										</div>										
+								
+								@endforeach
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="Following-modal modal fade" id="FollowingModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="container">
+
+								<div class="modal-body">
+									<!-- Project details-->
+									<div class="head">
+									<h2 class="text-uppercase">Following</h2>
+									<div class="button-wrap-close">
+										<div class="close-modal" data-bs-dismiss="modal"><i class="fa-solid fa-x"></i></div>
+									</div>
+									</div>
+
+									<div class="following">
+										@foreach($followings as $following)
+										<div class="button-wrap"> 
+											<div class="profile_image">
+												<img src="{{$following->profile_image}}" alt="" srcset="">
+											</div>
+											<div class="info">
+												
+												<div class="username">{{$following->username}} &#x2022
+													@if(isFollowing($following->id) == 'following')
+													{!! Form::model($following,['method'=>'POST','route'=>'unfollow']) !!}
+													  <button class="side-menu__suggestion-button" name="unfollow" value="{{$following->id}}">Unfollow</button>
+													{!! Form::close() !!}
+													@else
+													{!! Form::open(['method'=>'POST','route'=>'follow']) !!}
+													   <button class="side-menu__suggestion-button" name="follow" value="{{$following->id}}">Follow</button>
+													{!! Form::close() !!}
+													  @endif
+													
+													
+													</div>
+												<div class="name">{{$following->name}}</div>
+											</div>
+										</div>										
+								
+								@endforeach
+							</div>
+							</div>
+							</div>
+				</div>
+			</div>
+		</div>
+ 
 
 @endsection
 

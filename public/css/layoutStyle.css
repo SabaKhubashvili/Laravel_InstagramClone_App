@@ -513,6 +513,13 @@ color: black;
   }
 }
 
+
+@media (max-width: 768px) {
+  .header__buttons--desktop{
+    display: none;
+  }
+}
+
 @media (min-width: 768px) {
   :root {
     --header-height: 54px;
@@ -526,6 +533,7 @@ color: black;
   .header__search {
     display: flex;
   }
+
 
   .header__buttons--mobile {
     display: none;

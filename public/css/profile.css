@@ -105,6 +105,10 @@ img {
     margin-right: 4rem;
     cursor: pointer;
 }
+.profile-stats li  a{
+    text-decoration: none;
+    color: black;
+}
 
 .profile-stats li:last-of-type {
     margin-right: 0;
@@ -356,5 +360,64 @@ Remove or comment-out the code block below to see how the browser will fall-back
     }
 }
 
-/** Edit Profile */
+/** Folowers */
 
+#FollowersModal , #FollowingModal{
+    margin-top: 150px;
+}
+#FollowersModal .container , #FollowingModal .container{
+    margin: 0;
+    height: 300px;
+    text-align: center;
+}
+#FollowersModal .modal-body .head ,#FollowingModal .modal-body .head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #9E9E9E;
+}
+#FollowersModal .modal-body, #FollowingModal .modal-body {
+    font-size: 15px;
+
+    height: 100%;
+}
+#FollowersModal .button-wrap, #FollowingModal .button-wrap{
+    width: 100%;
+    text-align: start;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+#FollowersModal .container, #FollowingModal .container{
+    position: relative;
+}
+#FollowersModal .button-wrap .info, #FollowingModal .button-wrap .info{
+    font-size: 13px;
+}
+#FollowersModal .button-wrap .info .username form, #FollowingModal .button-wrap .info .username form{
+    margin-left: 10px;
+}
+#FollowersModal .button-wrap .info .username, #FollowingModal .button-wrap .info .username{
+    font-weight: 700;
+    display: flex;
+}
+#FollowersModal .button-wrap .info .name, #FollowingModal .button-wrap .info .name{
+    color: #9E9E9E;
+}
+#FollowersModal .button-wrap img, #FollowingModal .button-wrap img{
+    width: 40px;
+    border-radius: 50px;
+    margin-right: 30px;
+}
+
+#FollowersModal .button-wrap-close, #FollowingModal .button-wrap-close{
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+#FollowersModal .followers, #FollowingModal .following{
+    height: 80%;
+    overflow-y: auto;
+}

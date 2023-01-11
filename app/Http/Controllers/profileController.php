@@ -17,8 +17,10 @@ class profileController extends Controller
     {
         $profile = Auth::user();
 
+         $followers = $profile->followers;
+         $followings = $profile->following;
 
-        return view('profile',compact(['profile']));
+        return view('profile',compact(['profile','followers','followings']));
     }
 
     public function store(Request $request)
@@ -31,7 +33,7 @@ class profileController extends Controller
         $profile = Auth::user();
         $profile2 = User::findOrFail($id);
         if($profile == $profile2){
-        return view('edit_profile',compact(['profile']));
+            return view('edit_profile',compact(['profile']));
         }
         else{
             return redirect('/');
@@ -93,7 +95,10 @@ class profileController extends Controller
     {
         $profile = User::findOrFail($id);
 
-        return view('profile',compact(['profile']));
+        $followers = $profile->followers;
+        $followings = $profile->following;
+
+        return view('profile',compact(['profile','followers','followings']));
     }
 
     
