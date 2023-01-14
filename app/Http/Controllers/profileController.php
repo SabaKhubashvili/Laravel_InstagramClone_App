@@ -17,10 +17,7 @@ class profileController extends Controller
     {
         $profile = Auth::user();
 
-         $followers = $profile->followers;
-         $followings = $profile->following;
-
-        return view('profile',compact(['profile','followers','followings']));
+        return view('profile',compact(['profile']));
     }
 
     public function store(Request $request)
@@ -95,10 +92,8 @@ class profileController extends Controller
     {
         $profile = User::findOrFail($id);
 
-        $followers = $profile->followers;
-        $followings = $profile->following;
 
-        return view('profile',compact(['profile','followers','followings']));
+        return view('profile',compact(['profile']));
     }
 
     

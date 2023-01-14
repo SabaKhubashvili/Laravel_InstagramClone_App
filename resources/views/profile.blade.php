@@ -30,7 +30,9 @@
 				<a href="{{route('profile.edit',$profile->id)}}" class="btn profile-edit-btn">Edit Profile</a>
 
 				<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
-				@elseif(isFollowing($profile->id) == 'following')
+
+				@endif
+				@if(isFollowing($profile->id) == 'following')
 						{!! Form::model($profile,['method'=>'POST','route'=>'unfollow']) !!}
 						 <button class="side-menu__suggestion-button mx-4" name="unfollow" value="{{$profile->id}}">Unfollow</button>
 					{!! Form::close() !!}
@@ -155,7 +157,7 @@
 									</div>
 
 									<div class="followers" style="overflow-y: auto">
-										@foreach($followers as $follower)
+										@foreach($profile->followers as $follower)
 										<div class="button-wrap"> 
 											<div class="profile_image">
 												<img src="{{asset($follower->profile_image)}}" alt="" srcset="">
@@ -202,7 +204,7 @@
 									</div>
 
 									<div class="following">
-										@foreach($followings as $following)
+										@foreach($profile->following as $following)
 										<div class="button-wrap"> 
 											<div class="profile_image">
 												<img src="{{$following->profile_image}}" alt="" srcset="">

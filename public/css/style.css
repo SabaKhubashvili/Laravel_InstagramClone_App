@@ -263,8 +263,11 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-
+  outline: none !important;
   padding: 8px;
+}
+.post__button:hover{
+  opacity: 0.7;
 }
 .post__button--align-right {
   margin-left: auto;
@@ -394,3 +397,13 @@
       display: flex;
     }
   }
+
+.reactForm.active{
+  display: inline !important;
+}
+.reactForm .like svg{
+  transition: 0.1s ease;
+}
+.reactForm .like:hover svg{
+  opacity: 0.7;
+}

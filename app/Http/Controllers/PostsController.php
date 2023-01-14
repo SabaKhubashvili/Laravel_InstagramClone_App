@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class PostsController extends Controller
 {
@@ -33,7 +35,7 @@ class PostsController extends Controller
         $post->save();
 
 
-        return redirect()->intended('/');
+        return Redirect::back();
 
     }
 }

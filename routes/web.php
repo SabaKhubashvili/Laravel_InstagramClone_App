@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HeartController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\profileController;
 
 /*
@@ -18,17 +20,20 @@ use App\Http\Controllers\profileController;
 |
 */
 
-Route::get('/',[HomeController::class, 'index'])->name('index');
+
 
 Auth::routes();
 
-Route::resource('/profile', profileController::class)->name('index','profile');
 
-// Route::post('/posts/{post}/like', [App\Http\Controllers\HomeController::class, 'heart'])->name('heart');
+
 
 Route::resource('/post','App\Http\Controllers\PostsController');
 
 Route::group(['middleware' => 'auth'], function () {
+   
+    Route::resource('/profile', profileController::class)->name('index','profile');
+
+    Route::get('/',[HomeController::class, 'index'])->name('index');
     /* Follow */
     Route::post('/follow',[FollowController::class, 'follow'])->name('follow');
     Route::post('/unfollow',[FollowController::class,'unfollow'])->name('unfollow');
@@ -37,4 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/heart',[HeartController::class,'heart'])->name('heart');
     Route::post('/unheart',[HeartController::class,'unheart'])->name('unheart');
+
+
+    Route::get('/search',[SearchController::class,'search'])->name('search');
 });

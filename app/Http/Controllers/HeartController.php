@@ -12,11 +12,10 @@ class HeartController extends Controller
 {
     public function heart(Request $request){
 
-
         $heart = Post::Find($request->heart)->hearts()->attach(Auth::user());
 
 
-         response()->json('success','201');
+      
 
         return Redirect::back();
             

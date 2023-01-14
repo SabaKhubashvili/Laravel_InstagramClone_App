@@ -1,4 +1,8 @@
 // Elements
+
+
+
+
 const toggleThemeBtn = document.querySelector('.header__theme-button');
 const storiesContent = document.querySelector('.stories__content');
 const storiesLeftButton = document.querySelector('.stories__left-button');
@@ -169,3 +173,33 @@ postsContent.forEach((post) => {
     }
   }
 });
+
+
+const form = document.querySelectorAll('.heartForm');
+
+
+form.forEach(form =>{
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+
+      const heart = form.querySelector('#heartSvg');
+       
+
+      
+      const instance = axios.create({
+        baseURL: 'heart',
+      });
+    
+      const formData = new FormData(form);
+    
+      instance.post('',formData)
+      .then(response => {
+         heart.style.stroke= 'red';
+        heart.style.fill= 'red';
+      })
+      .catch(error =>{
+
+      });
+
+  })
+})
