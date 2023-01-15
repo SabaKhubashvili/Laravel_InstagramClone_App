@@ -17,14 +17,14 @@ class HeartController extends Controller
 
       
 
-        return Redirect::back();
             
     }
     public function unheart(Request $request){
-        $unheart = Heart::where('post_id',$request->unheart)->where('user_id',Auth::user()->id);
+
+        $unheart = Heart::wherePostId($request->unheart)->whereUserId(Auth::user()->id);
+
 
         $unheart->delete();
 
-        return Redirect::back();
     }
 }

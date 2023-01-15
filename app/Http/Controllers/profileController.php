@@ -33,7 +33,7 @@ class profileController extends Controller
             return view('edit_profile',compact(['profile']));
         }
         else{
-            return redirect('/');
+            return view('error/404');
         }
     }
 
@@ -49,7 +49,7 @@ class profileController extends Controller
         $profile = User::findOrFail($id);
 
         if(Auth::user()->id != $profile->id){
-            return redirect()->intended('/');
+            return view('error/404');
         };
 
         if($request->remove_image == 'Remove Image'){
@@ -91,7 +91,6 @@ class profileController extends Controller
     public function show($id)
     {
         $profile = User::findOrFail($id);
-
 
         return view('profile',compact(['profile']));
     }

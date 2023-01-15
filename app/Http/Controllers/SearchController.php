@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class SearchController extends Controller
 {
@@ -13,13 +14,11 @@ class SearchController extends Controller
         $profile = User::where('username','LIKE','%'.$search.'%')->first();
 
         
-
         if($profile !== null){
-
-        return Redirect('/profile',$profile->id);
+             return view('profile',compact(['profile']));
 
         }else{
-            abort(404);
+            return view('error/404');
         }
     }
 }

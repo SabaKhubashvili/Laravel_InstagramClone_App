@@ -1,3 +1,7 @@
+<?php 
+$profile = auth()->user();
+
+?>
 @extends('layouts.app')
 
 @section('header')
@@ -25,6 +29,10 @@
         font-size: 16px;
         text-align: center;
       }
+      .error .row p a{
+        color: black;
+        text-decoration: none;
+      }
     </style>
 @endsection
 
@@ -33,7 +41,7 @@
     <div class="error">
       <div class="col-md-8 row">
         <h2>Sorry, this page isn't available.</h2>
-        <p class="mt-4">The link you followed may be broken, or the page may have been removed. Go back to Instagram.</p>
+        <p class="mt-4">The link you followed may be broken, or the page may have been removed. <a href="{{route('index')}}"> Go back to Instagram. </a></p>
       </div>
     </div>
 

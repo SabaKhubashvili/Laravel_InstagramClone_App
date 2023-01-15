@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('header')
     <link rel="stylesheet" href="{{asset('css/profile.css')}}">
 

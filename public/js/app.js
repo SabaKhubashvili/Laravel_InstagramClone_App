@@ -13,14 +13,14 @@ const postsContent = document.querySelectorAll('.post__content');
 // ===================================
 // DARK/LIGHT THEME
 // Set initial theme from LocalStorage
-document.onload = setInitialTheme(localStorage.getItem('theme'));
-function setInitialTheme(themeKey) {
-  if (themeKey === 'dark') {
-    document.documentElement.classList.add('darkTheme');
-  } else {
-    document.documentElement.classList.remove('darkTheme');
-  }
-}
+// document.onload = setInitialTheme(localStorage.getItem('theme'));
+// function setInitialTheme(themeKey) {
+//   if (themeKey === 'dark') {
+//     document.documentElement.classList.add('darkTheme');
+//   } else {
+//     document.documentElement.classList.remove('darkTheme');
+//   }
+// }
 
 // // Toggle theme button
 // toggleThemeBtn.addEventListener('click', () => {
@@ -175,27 +175,59 @@ postsContent.forEach((post) => {
 });
 
 
-const form = document.querySelectorAll('.heartForm');
+const heart = document.querySelectorAll('.heartForm');
+const unheart =  document.querySelectorAll('.unHeartForm');
 
 
-form.forEach(form =>{
+
+
+
+unheart.forEach(form => {
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const unheart = form.querySelector('.unheart').value;
+        
+        const unheartSVG = form.querySelector('#heartSvg');
+
+        let formData = new FormData();
+        formData.append('unheart',unheart)
+      
+        axios.post('/unheart', formData)
+        .then(response => {
+            unheartSVG.style.fill = 'black';
+            unheartSVG.style.stroke = 'black';
+        }).catch(error => {
+            console.log(error);
+        });
+    });
+});
+
+
+heart.forEach(form =>{
   form.addEventListener('submit',function(e){
     e.preventDefault();
 
-      const heart = form.querySelector('#heartSvg');
+      const heartSVG = form.querySelector('#heartSvg');
        
 
-      
+      const formData = new FormData(form);
+
       const instance = axios.create({
         baseURL: 'heart',
+        
       });
     
-      const formData = new FormData(form);
+    
     
       instance.post('',formData)
       .then(response => {
-         heart.style.stroke= 'red';
-        heart.style.fill= 'red';
+        heartSVG.style.stroke= 'red';
+        heartSVG.style.fill= 'red';
+
+        
+
+        console.log(response);
       })
       .catch(error =>{
 
@@ -203,3 +235,5 @@ form.forEach(form =>{
 
   })
 })
+
+
