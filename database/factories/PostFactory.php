@@ -19,7 +19,7 @@ class PostFactory extends Factory
         return [
             'title' => fake()->name(),
             'content'=> fake()->text(50),
-            'user_id' => fake()->numberBetween(0,100),
+            'user_id' => 1,
             'image_path' => 'default.png',
         ];
     }

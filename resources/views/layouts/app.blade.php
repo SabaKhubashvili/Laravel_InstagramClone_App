@@ -98,7 +98,7 @@
               />
             </svg>
           </a>
-          <a href="{{route('inbox')}}">
+          <a href="{{url('direct/inbox')}}">
             <svg
               width="24"
               height="24"
@@ -119,10 +119,12 @@
             </svg>
           </a>
           
-          <a class="form-link" data-bs-toggle="modal" href="#formModal"><i class="fa-solid fa-plus"></i> </a>
+          <a class="form-link" data-bs-toggle="modal" href="#formModal">
+            <img src="{{asset('images/svg/icons/add.svg')}}" style="width:24px;" alt="" srcset="">
+          </a>
 
-          <a href="#">
-            <i class="fa-solid fa-compass"></i>
+          {{-- <a href="#">
+            <img src="{{asset('images/svg/icons/compass.svg')}}" style="width:24px;" alt="" srcset="">
           </a>
           <a href="#">
             <svg
@@ -139,7 +141,7 @@
                 stroke-width="0.6"
               />
             </svg>
-          </a>
+          </a> --}}
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
@@ -196,7 +198,7 @@
             />
           </svg>
         </a>
-        <a href="#" class="navbar__button">
+        {{-- <a href="#" class="navbar__button">
           <svg
             width="24"
             height="24"
@@ -216,9 +218,12 @@
           </svg>
         </a>
         <a href="#" class="navbar__button">
-        <i class="fa-solid fa-compass"></i>
+          <img src="{{asset('images/svg/icons/compass.svg')}}" style="width:24px;" alt="" srcset="">
+        </a> --}}
+        <a class="navbar__button" data-bs-toggle="modal" href="#formModal">
+          <img src="{{asset('images/svg/icons/add.svg')}}" style="width:24px;" alt="" srcset="">
         </a>
-        <a href="{{route('inbox')}}">
+        <a href="{{url('direct/inbox')}}" class="navbar__button">
           <svg
             width="24"
             height="24"
@@ -246,39 +251,9 @@
         </a>
       </nav>
 
-      <div class="form-modal modal fade" id="formModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><i class="fa fa-X" aria-hidden="true"></i></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <!-- Project details-->
-                                <h2 class="text-uppercase">Add Post</h2>
+        @include('layouts.modals')
 
-                                  {!! Form::open(['method'=>'POST','route'=>'post.store','files'=>true,'class'=>'d-flex post-add-form','style'=>'flex-direction:column;']) !!}
-
-                                  {!! Form::label('title','Enter Title',['class'=>'mt-5']) !!}
-                                  {!! Form::text('title',null,['class'=>'form-component','required']) !!}
-
-                                  {!! Form::label('content','Enter Content',['class'=>'mt-5']) !!}
-                                  {!! Form::textArea('content',null,['class'=>'form-component-textarea w-100','required']) !!}
-
-                                  {!! Form::label('image','Enter Image',['class'=>'mt-5']) !!}
-                                  {!! Form::file('image',null,['class'=>'form-component','required']) !!}
-
-                                  {!! Form::submit('Add Post',['class'=>'btn btn-primary btn-xl text-uppercase mt-4','data-bs-dismiss'=>'modal']) !!}
-
-                                {!! Form::close() !!}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+        
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>

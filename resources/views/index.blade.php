@@ -11,58 +11,7 @@
 
       <section class="content-container">
         <div class="content">
-          <div class="stories">
-            <button class="stories__left-button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  fill="#fff"
-                  d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z"
-                ></path>
-              </svg>
-            </button>
-            <div class="stories__content">
-              <button class="story story--has-story">
-                <div class="story__avatar">
-                  <div class="story__border">
-                    <svg
-                      width="64"
-                      height="64"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle r="31" cy="32" cx="32" />
-                      <defs>
-                        <linearGradient
-                          y2="0"
-                          x2="1"
-                          y1="1"
-                          x1="0"
-                          id="--story-gradient"
-                        >
-                          <stop offset="0" stop-color="#f09433" />
-                          <stop offset="0.25" stop-color="#e6683c" />
-                          <stop offset="0.5" stop-color="#dc2743" />
-                          <stop offset="0.75" stop-color="#cc2366" />
-                          <stop offset="1" stop-color="#bc1888" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                  </div>
-                  <div class="story__picture">
-                    <img src="{{asset('images/user/default-user.png')}}" alt="User Picture" />
-                  </div>
-                </div>
-                <span class="story__user">usernick1</span>
-              </button>
-            </div>
-            <button class="stories__right-button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  fill="#fff"
-                  d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"
-                ></path>
-              </svg>
-            </button>
-          </div>
+           @include('layouts.stories') {{--! Stories --}}
 
           <div class="posts">
           @foreach($posts as $post)
@@ -83,42 +32,57 @@
                     >{{$post->user->name}}</a
                   >
                 </div>
-
-                <button class="post__more-options">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="6.5"
-                      cy="11.5"
-                      r="1.5"
-                      fill="var(--text-dark)"
-                    />
-                    <circle cx="12" cy="11.5" r="1.5" fill="var(--text-dark)" />
-                    <circle
-                      cx="17.5"
-                      cy="11.5"
-                      r="1.5"
-                      fill="var(--text-dark)"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              <div class="post__content">
-                <div class="post__medias">
-                  <img
-                    class="post__media"
-                    src="{{asset($post->image_path)}}"
-                    alt="Post Content"
-                  />
+                
+              @if($post->user->id == auth()->user()->id)
+                <div class="dropdown open post__more-options dropleft" >
+                      <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      class="dropdown-toggle"
+                      type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="6.5"
+                        cy="11.5"
+                        r="1.5"
+                        fill="var(--text-dark)"
+                      />
+                      <circle cx="12" cy="11.5" r="1.5" fill="var(--text-dark)" />
+                      <circle
+                        cx="17.5"
+                        cy="11.5"
+                        r="1.5"
+                        fill="var(--text-dark)"
+                      />
+                    </svg>
+                      
+                  <div class="dropdown-menu" aria-labelledby="triggerId">
+                    {{-- {!! Form::model($post,['method'=>'DELETE','id'=>'post-delete-form']) !!}
+                    {!! Form::hidden('post_id',$post->id,['id'=>'post_id']) !!} --}}
+                    <button class="dropdown-item" id="delete_post" value="{{$post->id}}" style="color:red" href=""><img src="{{asset('images/svg/icons/trash.svg')}}" style="width: 15px;" class="mr-2" alt=""> Delete</button>
+                      {{-- {!! Form::close() !!}  --}}
+                  </div>
                 </div>
+                @endif
+                
               </div>
-
+             
+                <div class="post__content">
+                  
+                  <div class="post__medias">
+                    <img
+                      class="post__media"
+                      src="{{asset($post->image_path)}}"
+                      alt="Post Content"
+                    />
+                  </div>
+                
+                </div>
+      
               <div class="post__footer">       
                 <div class="post__buttons"> 
 
@@ -149,7 +113,7 @@
 
                   {!! Form::model($post->user,['method'=>'POST','route'=>'heart','id'=>'heartForm','class'=>'reactForm active heartForm','style'=>'']) !!}
                     {!! Form::hidden('heart',$post->id) !!}
-                    <button class="post__button like" id="heart" name="heart" value="{{$post->id}}" type="submit">
+                    <button class="post__button heart" id="heart" name="heart" value="{{$post->id}}" type="submit">
                       <svg
                         width="24"
                         height="24"
@@ -230,7 +194,7 @@
                 <div class="post__infos">
                   <div class="post__likes">
                     <a href="#" class="post__likes-avatar">
-                      <img src="{{asset('images/user/default-user.png')}}" alt="User Picture" />
+                      <img src="{{asset($post->user->profile_image)}}" alt="User Picture" />
                     </a>
 
                     <span
@@ -267,106 +231,17 @@
                 </div>
               </div>
             </article>
+
+             
             @endforeach
           </div>
         </div>
-
         <section class="side-menu">
-          <div class="side-menu__user-profile">
-            <a
-              href="{{route('profile')}}"
-              target="_blank"
-              class="side-menu__user-avatar"
-            >
-              <img src="{{asset($profile->profile_image)}}" alt="User Picture" />
-            </a>
-            <div class="side-menu__user-info">
-              <a href="{{route('profile')}}" target="_blank"
-                >{{$profile->name}}</a
-              >
-              <span>@ {{$profile->username}}</span>
-            </div>
-            {!! Form::open(['method'=>'POST','route'=>'logout']) !!}
-              {!! Form::submit('Switch',['class'=>'side-menu__user-button']) !!}
-            {!! Form::close() !!}
-          </div>
 
-          <div class="side-menu__suggestions-section">
-            <div class="side-menu__suggestions-header">
-              <h2>Suggestions for You</h2>
-              <button>See All</button>
-            </div>
-            <div class="side-menu__suggestions-content">
-              @foreach($users as $user)
-                <div class="side-menu__suggestion">
-                  <a href="{{route('profile.show',$user->id)}}" class="side-menu__suggestion-avatar">
-                    <img src="{{asset($user->profile_image)}}" alt="User Picture" />
-                  </a>
-                  <div class="side-menu__suggestion-info">
-                    <a href="{{route('profile.show',$user->id)}}">{{$user->name}}</a>
-                    <span>  @if(count($user->followers->where('id', '!=', $profile->id)) > 0) @foreach($user->followers as $follower) Followed By {{$follower->name}}@endforeach @else Suggested For You @endif  </span>
-                  </div>
-                  
-                  @if(isFollowing($user->id) == 'following')
-                  {!! Form::model($user,['method'=>'POST','route'=>'unfollow']) !!}
-                    <button class="side-menu__suggestion-button" name="unfollow" value="{{$user->id}}">Unfollow</button>
-                  {!! Form::close() !!}
-                  @else
-                  {!! Form::open(['method'=>'POST','route'=>'follow']) !!}
-                     <button class="side-menu__suggestion-button" name="follow" value="{{$user->id}}">Follow</button>
-                  {!! Form::close() !!}
-                    @endif
-                  
-                </div>
-              @endforeach
-              </div>
-            </div>
-          </div>
+        @include('layouts.side-menu') {{--! Side Menu --}}
 
-          <div class="side-menu__footer">
-            <div class="side-menu__footer-links">
-              <ul class="side-menu__footer-list">
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">About</a>
-                </li>
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">Help</a>
-                </li>
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">Press</a>
-                </li>
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">API</a>
-                </li>
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">Jobs</a>
-                </li>
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">Privacy</a>
-                </li>
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">Terms</a>
-                </li>
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">Locations</a>
-                </li>
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">Top Accounts</a>
-                </li>
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">Hashtag</a>
-                </li>
-                <li class="side-menu__footer-item">
-                  <a class="side-menu__footer-link" href="#">Language</a>
-                </li>
-              </ul>
-            </div>
-
-            <span class="side-menu__footer-copyright"
-              >&copy; 2021 instagram from facebook</span
-            >
-          </div>
         </section>
+
       </section>
 
           
@@ -376,5 +251,6 @@
   @section('footer')
 
   <script src="{{asset('js/app.js')}}"></script>
+  <script src="{{asset('js/post_add.js')}}"></script>
   @endsection
       

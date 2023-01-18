@@ -1,6 +1,3 @@
-// Elements
-
-
 
 
 const toggleThemeBtn = document.querySelector('.header__theme-button');
@@ -67,9 +64,9 @@ if (window.matchMedia('(min-width: 1024px)').matches) {
     { root: storiesContent, threshold: 1 }
   );
 
-  // Calling the observer with the first and last stories
-  storiesObserver.observe(document.querySelector('.story:first-child'));
-  storiesObserver.observe(document.querySelector('.story:last-child'));
+  //* Calling the observer with the first and last stories
+  // storiesObserver.observe(document.querySelector('.story:first-child'));
+  // storiesObserver.observe(document.querySelector('.story:last-child'));
 }
 
 // ===================================
@@ -175,6 +172,10 @@ postsContent.forEach((post) => {
 });
 
 
+
+
+//* React System Axios Request
+
 const heart = document.querySelectorAll('.heartForm');
 const unheart =  document.querySelectorAll('.unHeartForm');
 
@@ -209,9 +210,8 @@ heart.forEach(form =>{
     e.preventDefault();
 
       const heartSVG = form.querySelector('#heartSvg');
-       
 
-      const formData = new FormData(form);
+      const heart = form.querySelector('.heart').value;
 
       const instance = axios.create({
         baseURL: 'heart',
@@ -220,14 +220,12 @@ heart.forEach(form =>{
     
     
     
-      instance.post('',formData)
+      instance.post('',{
+        heart:heart
+      })
       .then(response => {
         heartSVG.style.stroke= 'red';
         heartSVG.style.fill= 'red';
-
-        
-
-        console.log(response);
       })
       .catch(error =>{
 
@@ -236,4 +234,73 @@ heart.forEach(form =>{
   })
 })
 
+
+
+
+//* Store Post System Axios Request
+
+// const StoreForm = document.getElementById('storeForm');
+
+// StoreForm.addEventListener('submit',function(e){
+//   e.preventDefault()
+//   const data = {};
+//   const formData = new FormData(StoreForm);
+
+ 
+
+//   for(const [name,value] of formData.entries()){
+//     data[name] = value;
+//   }
+//   data['image'] = 'saba.jpg';
+
+
+
+//   console.log(data);
+
+//   axios.post('post',data)
+//         .then(res=>{
+//           console.log(res);
+//         }).catch(error =>{
+//           console.log(error);
+//         })
+ 
+
+  
+// })
+
+
+//* Delete Post System Axios Request
+
+
+
+const DeleteForm = document.querySelectorAll('.post #delete_post');
+
+
+DeleteForm.forEach(form=>{
+  
+  form.addEventListener('click',function(e){
+  
+      const post = form.closest('.post')
+
+      const post_id = form.value;
+      
+      const instance = axios.create({
+        baseURL:`post/`,
+        data:{
+          id:post_id
+        },
+      })
+      
+      instance.delete(`${post_id}`)
+              .then(res =>{
+                post.style.display = 'none';
+              })
+              .catch(error =>{
+                post.style.display = 'none';
+              })
+      
+  })
+
+  
+})
 

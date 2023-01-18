@@ -28,8 +28,9 @@ class profileController extends Controller
     public function edit($id)
     {
         $profile = Auth::user();
-        $profile2 = User::findOrFail($id);
-        if($profile == $profile2){
+        $profile2 = User::find($id);
+
+        if($profile == $profile2 ){
             return view('edit_profile',compact(['profile']));
         }
         else{
@@ -90,9 +91,16 @@ class profileController extends Controller
      
     public function show($id)
     {
-        $profile = User::findOrFail($id);
+        $profile = User::find($id);
 
-        return view('profile',compact(['profile']));
+        if($profile !== null){
+             return view('profile',compact(['profile']));
+        }
+        else{
+            return view('error.404');
+        }
+
+       
     }
 
     

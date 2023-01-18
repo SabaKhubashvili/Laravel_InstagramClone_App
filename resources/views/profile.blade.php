@@ -31,11 +31,12 @@
 				<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 
 				@endif
-				@if(isFollowing($profile->id) == 'following')
+
+				@if(isFollowing($profile->id) == 'following' && auth()->user()->id !== $profile->id)
 						{!! Form::model($profile,['method'=>'POST','route'=>'unfollow']) !!}
 						 <button class="side-menu__suggestion-button mx-4" name="unfollow" value="{{$profile->id}}">Unfollow</button>
 					{!! Form::close() !!}
-				@else
+				@elseif(isFollowing($profile->id) == 'none' && auth()->user()->id !== $profile->id)
 						{!! Form::open(['method'=>'POST','route'=>'follow']) !!}
 						  <button class="side-menu__suggestion-button mx-4" name="follow" value="{{$profile->id}}">Follow</button>
 					{!! Form::close() !!}
@@ -75,20 +76,23 @@
 		<div class="gallery">
 
 			@foreach($profile->posts as $post)
-			<div class="gallery-item" tabindex="0">
+			<a href="{{route('post.show',$post->id)}}">
+				<div class="gallery-item" tabindex="0">
 
-				<img src="{{asset($post->image_path)}}" class="gallery-image" alt="">
+					<img src="{{asset($post->image_path)}}" class="gallery-image" alt="">
 
-				<div class="gallery-item-info">
+					<div class="gallery-item-info">
 
-					{{-- <ul>
-						<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 56</li>
-						<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 2</li>
-					</ul> --}}
+						<ul>
+							<li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i> 0</li>
+							<li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 0</li>
+						</ul>
+
+					</div>
 
 				</div>
-
-			</div>
+			</a>
+			
 			@endforeach
 
 
@@ -240,5 +244,5 @@
 
 
 @section('footer')
-    
+<script src="{{asset('js/post_add.js')}}"></script>
 @endsection

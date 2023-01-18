@@ -76,7 +76,7 @@
                                     <div class="button-wrap"> 
                                         {!! Form::model($profile,['method'=>'Put','route'=>['profile.update',$profile->id],'files'=>true]) !!}
                                             {!! Form::label('image','Change Profile Image',['class'=>'button my-2']) !!}
-                                            {!! Form::file('image',['onchange'=>'form.submit()']) !!}
+                                            {!! Form::file('image',['onchange'=>'form.submit()','accept'=>"image/gif,image/jpeg,image/png,image/jpg"    ]) !!}
                                         {!! Form::close() !!}
                                     </div>
                                     <div class="button-wrap">
@@ -99,5 +99,5 @@
 @endsection
 
 @section('footer')
-    
+
 @endsection

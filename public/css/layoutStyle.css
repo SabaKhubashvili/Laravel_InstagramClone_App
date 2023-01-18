@@ -508,7 +508,7 @@ color: black;
   .form-component{
     width: 200px !important;
   }
-  .form-modal .modal-content h2{
+  .post-modal .modal-content h2{
     font-size: 25px !important;     
   }
 }
@@ -560,43 +560,110 @@ color: black;
 
 /** Form */
 
+.form-modal.show{
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+
+}
 .form-modal .modal-dialog {
-  margin: 1rem auto !important;
-  max-width: 100vw !important;
-  width: 80vw !important;
+  margin: 1rem auto;
+  max-width: 100vw;
+  width: 600px;
 }
 .form-modal .modal-content {
-  padding-top: 6rem !important;
-  padding-bottom: 6rem !important;
-  text-align: center !important;
+  height: 600px;
 }
-.form-modal .modal-content h2, .form-modal .modal-content .h2 {
-  font-size: 3rem ;
-  line-height: 3rem;
+.form-modal .modal-content .image_post_header{
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #DBDBDB;
 }
-.form-modal .modal-content p.item-intro {
-  font-style: italic !important;
-  margin-bottom: 2rem !important;
-  font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+.form-modal .modal-content .image_post_header .close-modal{
+  position: absolute;
+  right: 1rem !important;
+  top: 1rem !important;
 }
-.form-modal .modal-content p {
-  margin-bottom: 2rem !important;
+.form-modal .modal-content .add_post_content { 
+  height: 100%;
+  width: 100%;
 }
-.form-modal .modal-content ul.list-inline {
-  margin-bottom: 2rem !important;
+.form-modal .modal-content .add_post_content .image_post_content{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  
 }
-.form-modal .modal-content img {
-  margin-bottom: 2rem !important;
+.form-modal .modal-content .add_post_content .image_post_content img{
+  width: 100px;
+  display: flex;
+  margin: 0 auto;
 }
-.form-modal .close-modal {
-  position: absolute !important;
-  top: 1.5rem !important;
-  right: 1.5rem !important;
-  width: 3rem !important;
-  height: 3rem !important;
-  cursor: pointer !important;
-  background-color: transparent !important; 
+.form-modal .modal-content .add_post_content .image_post_content .info {
+  font-weight: 100;
+  font-size: 20px;
 }
-.form-modal .close-modal:hover {
-  opacity: 0.3!important;
+
+.form-modal .modal-content .add_post_content .image_post_content .info, .form-modal .modal-content .add_post_content .image_post_content .button {
+  margin-top: 20px;
 }
+.form-modal .modal-content .add_post_content .image_post_content .button-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background-color: #0095F6;
+    color: #fff;
+  
+  }
+  .form-modal .modal-content .add_post_content .image_post_content .button-wrap label{
+    margin: 0;
+    padding: 5px 15px;
+    cursor: pointer;
+  }
+
+  .form-modal .modal-content .add_post_content .image_post_content input[type="file"] {
+    position: absolute;
+    z-index: -1;
+    top: 10px;
+    left: 8px;
+    font-size: 13px;
+    color: #b8b8b8;
+    padding: 5px 15px;
+    }
+    
+    .form-modal .modal-content .add_post_content .info-post-content{
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .form-modal .modal-content .add_post_content .info-post-content .form-components{
+      margin: 30px 0;
+      height: 100px !important;
+      width: 80%;
+    }
+    .form-modal .modal-content .add_post_content .info-post-content .form-components .form-inputs{
+      width: 100%;
+      height: 40px;
+    }
+    .form-modal .modal-content .add_post_content .info-post-content .form-components .textarea{
+      height: 200px;
+      max-height: 200px;
+    }
+    .form-modal .modal-content .add_post_content .info-post-content .submit{
+      position: absolute;
+      bottom: 40px;
+    }
+    .form-modal .modal-content .add_post_content .info-post-content .submit input{
+      padding: 5px 45px;
+      border: none;
+      background-color: #0095F6;
+      color: #fff;
+      border-radius: 5px;
+    }
+

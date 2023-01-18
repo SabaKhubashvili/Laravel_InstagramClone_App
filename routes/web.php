@@ -30,7 +30,13 @@ Route::group(['middleware' => 'auth'], function () {
     
 
 
-    Route::resource('/post','App\Http\Controllers\PostsController');
+    Route::resource('/post','App\Http\Controllers\PostsController')->only(['store','destroy','show']);
+
+
+    
+
+
+
     Route::resource('/profile', profileController::class)->name('index','profile');
 
     Route::get('/',[HomeController::class, 'index'])->name('index');
@@ -45,16 +51,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('/search',[SearchController::class,'search'])->name('search');
-
-    Route::get('/direct/inbox',function(){
-        $profile = Auth::user();
-        return view('inbox')->with('profile',$profile);
-    })->name('inbox');
-
-    Route::get('/direct/inbox/dm',function(){
-        $profile = Auth::user();
-        return view('dm')->with('profile',$profile);
-    })->name('dm');
 
     Route::fallback(function () {
         return view('error/404');

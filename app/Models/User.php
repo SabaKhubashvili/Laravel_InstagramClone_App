@@ -6,7 +6,9 @@ namespace App\Models;
 use App\Models\Post;
 use App\Models\Heart;
 use App\Models\Follow;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,7 +22,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    public $incrementing = false;
     protected $fillable = [
+        'id',
         'name',
         'username',
         'email',
@@ -61,4 +65,5 @@ class User extends Authenticatable
     public function hearts(){
         return $this->hasMany(Heart::class,'user_id');
     }
+    
 }
